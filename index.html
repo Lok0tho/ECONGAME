@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Economy Game</title>
+  <title>Global Economy Simulator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <h1>Global Economy Simulator</h1>
+    <div id="start-screen">
+      <p>Select a country to begin your journey as an economic leader.</p>
+      <div class="country-buttons">
+        <button onclick="startGame('USA')">USA</button>
+        <button onclick="startGame('China')">China</button>
+        <button onclick="startGame('Germany')">Germany</button>
+        <button onclick="startGame('India')">India</button>
+      </div>
+    </div>
 
-  <h1>Global Economy Game</h1>
-  <p>Choose a country and try to manage its economy!</p>
-
-  <div id="country-selector">
-    <h2>Select Your Country</h2>
-    <button onclick="chooseCountry('USA')">USA</button>
-    <button onclick="chooseCountry('China')">China</button>
-    <button onclick="chooseCountry('Brazil')">Brazil</button>
+    <div id="game-ui" class="hidden">
+      <h2 id="player-country"></h2>
+      <div id="stats"></div>
+      <div class="actions">
+        <button onclick="trade()">Trade</button>
+        <button onclick="invest()">Invest</button>
+        <button onclick="nextTurn()">Next Turn</button>
+      </div>
+      <div id="log"></div>
+    </div>
   </div>
-
-  <div id="game-board" style="display:none;">
-    <h2 id="country-name">Country: </h2>
-    <div id="economy-info"></div>
-    <button onclick="nextTurn()">Next Turn</button>
-    <div id="log"></div>
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
