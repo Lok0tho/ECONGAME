@@ -1,88 +1,60 @@
-let selectedCountry = null;
-
-const countries = {
-  USA: { money: 1000, oil: 50, tech: 30, food: 80, population: 330 },
-  China: { money: 1000, oil: 40, tech: 40, food: 90, population: 1400 },
-  Brazil: { money: 1000, oil: 20, tech: 10, food: 120, population: 210 },
-};
-
-const eventDeck = [
-  "Oil Crisis",
-  "Tech Boom",
-  "Recession",
-  "Population Surge"
-];
-
-function chooseCountry(country) {
-  selectedCountry = countries[country];
-  document.getElementById("country-selector").style.display = "none";
-  document.getElementById("game-board").style.display = "block";
-  document.getElementById("country-name").innerText = `Country: ${country}`;
-  drawEconomyInfo();
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  color: #333;
 }
 
-function drawEconomyInfo() {
-  const info = `
-    <p>Money: $${selectedCountry.money}</p>
-    <p>Oil: ${selectedCountry.oil} | Tech: ${selectedCountry.tech} | Food: ${selectedCountry.food}</p>
-    <p>Population: ${selectedCountry.population}M</p>
-    <button onclick="trade()">Trade</button>
-    <button onclick="invest()">Invest</button>
-    <button onclick="passTurn()">Pass Turn</button>
-  `;
-  document.getElementById("economy-info").innerHTML = info;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-function log(msg) {
-  const logBox = document.getElementById("log");
-  logBox.innerHTML += `<p>${msg}</p>`;
-  logBox.scrollTop = logBox.scrollHeight;
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-function trade() {
-  selectedCountry.money += 100;
-  selectedCountry.oil = Math.max(0, selectedCountry.oil - 5);
-  log(`${selectedCountry.name} traded oil for $100.`);
-  drawEconomyInfo();
+.country-buttons, .actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-function invest() {
-  if (selectedCountry.money >= 200) {
-    selectedCountry.money -= 200;
-    selectedCountry.tech += 10;
-    log(`${selectedCountry.name} invested in tech.`);
-    drawEconomyInfo();
-  } else {
-    log(`${selectedCountry.name} doesn't have enough money to invest.`);
-  }
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-function passTurn() {
-  log(`${selectedCountry.name} passed their turn.`);
+button:hover {
+  background-color: #005fa3;
 }
 
-function nextTurn() {
-  const event = eventDeck[Math.floor(Math.random() * eventDeck.length)];
-  log(`<strong>Random Event:</strong> ${event}`);
+#stats {
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
 
-  switch (event) {
-    case "Oil Crisis":
-      selectedCountry.money += selectedCountry.oil * 5;
-      log("Oil became more valuable. Money increased based on oil reserves.");
-      break;
-    case "Tech Boom":
-      selectedCountry.money += selectedCountry.tech * 3;
-      log("Tech boom! Money increased based on tech level.");
-      break;
-    case "Recession":
-      selectedCountry.money = Math.max(0, selectedCountry.money - 150);
-      log("Recession hit! $150 lost.");
-      break;
-    case "Population Surge":
-      selectedCountry.population += 10;
-      log("Population surged by 10 million.");
-      break;
-  }
+#log {
+  background: #eef2f7;
+  border-left: 5px solid #0077cc;
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+  margin-top: 20px;
+}
 
-  drawEconomyInfo();
+.hidden {
+  display: none;
 }
